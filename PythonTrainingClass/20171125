@@ -29,10 +29,22 @@ print(havereturm())
 #文档字符串，用于写函数文档，让帮助文档更加清晰
 
 #全局变量和局部变量
-info='info 1'
+info1='info 1'
 def info_father():
-    info='info 2'
-    return info
+    info2='info 2'
+    return info2
 
 print(info_father())
+#在一个py文件，info1是在这个py文件中的全局变量，info2是一个局部变量，因为处于函数内部
 
+def func_global():
+    '''关键字global表明，我要用全局变量y，不要用局部变量'''
+    global y
+    print 'y is', y
+    #定义了局部变量，后面访问依然是这个局部变量，如果不再次定义x的话，依然会继续使用全局变量
+    y = 50
+    print 'Changed local y to', y
+
+y = 10
+func_global()
+print 'Value of y is', y
