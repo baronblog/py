@@ -13,7 +13,7 @@ else:
 
 
 def noreturn():
-'''this is a document, finsh print result'''
+'''this is a document, finsh print result(文档字符串)'''
     print("No Return")
 
 def havereturm():
@@ -23,5 +23,5 @@ def havereturm():
 print(noreturn())
 print(havereturm())
 #从结构来说，函数是为了实现特定输出的，如果没有return，会输出为 None，不完整
-#
+#文档字符串，用于写函数文档，让帮助文档更加清晰
 
