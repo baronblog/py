@@ -1,1 +1,27 @@
+#图灵完备
+#在可计算性理论里，如果一系列操作数据的规则（如指令集、编程语言、细胞自动机）可以用来模拟单带图灵机，那么它是图灵完备的。
+
+#编程到底是什么
+#编程是人与计算机的交互，人通过某种编程语言，也就是和计算机交互的某一种标准化的交流技巧（比如说有PHP，Python等），让计算机按照人的思维，输出特定的结果。
+
+#for else
+i=[1,2,3,4,5]
+for r in i:
+    print(r)
+else:
+    print("循环遍历已经完成")
+
+
+def noreturn():
+'''this is a document, finsh print result'''
+    print("No Return")
+
+def havereturm():
+    a="Have Return"
+    return a
+
+print(noreturn())
+print(havereturm())
+#从结构来说，函数是为了实现特定输出的，如果没有return，会输出为 None，不完整
 #
+
