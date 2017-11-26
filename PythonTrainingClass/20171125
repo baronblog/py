@@ -14,7 +14,7 @@ for r in i:
 else:
     print("循环遍历已经完成")
 
-
+#函数字符串文档，函数return
 def noreturn():
 '''this is a document, finsh print result(文档字符串)'''
     print("No Return")
@@ -27,4 +27,12 @@ print(noreturn())
 print(havereturm())
 #从结构来说，函数是为了实现特定输出的，如果没有return，会输出为 None，不完整
 #文档字符串，用于写函数文档，让帮助文档更加清晰
+
+#全局变量和局部变量
+info='info 1'
+def info_father():
+    info='info 2'
+    return info
+
+print(info_father())
 
