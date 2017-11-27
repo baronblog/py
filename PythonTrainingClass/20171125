@@ -48,3 +48,9 @@ def func_global():
 y = 10
 func_global()
 print 'Value of y is', y
+
+#变量作用域
+info='test'
+def infotest():
+    print(info)
+#结果
