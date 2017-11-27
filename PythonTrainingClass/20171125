@@ -62,5 +62,18 @@ def infotest():
 #结果打印为报错，当打印变量时，搜索变量info，info在这属于局部变量，找到了，但没有定义，报错
 #python作用域，先在函数内部查找，再去嵌套函数查找，如果有嵌套的函数，再去全局查找，再去内置查找，再找不到，就报错了
 
-def infotest():内部
-def infotest():
+#函数return只能返回一个值，但可以是任何类型
+def infotest(a,b):
+    return a,b
+#返回为一个元组
+
+#函数 可变参数
+def infotest(a,b,*c):
+    return a,b,c
+print(infotest(1,2,3,4,5,6,9))
+#返回值为(1, 2, (3, 4, 5, 6, 9)),实行一对一的方法，后面多余的都被打包成一个元组
+
+def infotest(a,**b):
+    return a,b
+print (infotest(1,b=20,c=30))
+#两颗星代表传递的是字典，输出结果为(1, {'c': 30, 'b': 20})
