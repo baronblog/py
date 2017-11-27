@@ -60,3 +60,7 @@ def infotest():
     info=info+1
     print(info)
 #结果打印为报错，当打印变量时，搜索变量info，info在这属于局部变量，找到了，但没有定义，报错
+#python作用域，先在函数内部查找，再去嵌套函数查找，如果有嵌套的函数，再去全局查找，再去内置查找，再找不到，就报错了
+
+def infotest():内部
+def infotest():
