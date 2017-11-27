@@ -53,4 +53,10 @@ print 'Value of y is', y
 info='test'
 def infotest():
     print(info)
-#结果
+#结果打印为test，是因为如果打印一个变量，python会先在函数内部搜寻，如果没有，再向外搜寻，info为全局变量，搜到了最后被打印出来
+
+info=1111
+def infotest():
+    info=info+1
+    print(info)
+#结果打印为报错，当打印变量时，搜索变量info，info在这属于局部变量，找到了，但没有定义，报错
