@@ -77,3 +77,16 @@ def infotest(a,**b):
     return a,b
 print (infotest(1,b=20,c=30))
 #两颗星代表传递的是字典，输出结果为(1, {'c': 30, 'b': 20})
+
+#import，当在一个函数内部导入，执行的便是局部导入，当在文件顶部导入的时候，就是应用到全局
+def louistest(b,c):
+    import math
+    a=b+c
+    return a
+
+import math
+def louistest():
+    a=math.acos()
+    return a
+#只导入部分函数
+from pandas import DataFrame
