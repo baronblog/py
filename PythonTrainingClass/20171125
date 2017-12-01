@@ -91,5 +91,5 @@ def louistest():
 #只导入部分函数
 from pandas import DataFrame
 #相对导入和绝对导入依然有问题！！！！！！课上提问
-
+#dir()返回值中有双下滑线的现在理解为内置方法，但有问题，需要进一步理解
 
