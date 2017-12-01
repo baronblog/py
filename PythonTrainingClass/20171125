@@ -88,8 +88,65 @@ import math
 def louistest():
     a=math.acos()
     return a
+
 #只导入部分函数
 from pandas import DataFrame
 #相对导入和绝对导入依然有问题！！！！！！课上提问
 #dir()返回值中有双下滑线的现在理解为内置方法，但有问题，需要进一步理解
+
+#利用分支判断语句判断参数
+def louistest(a,b,*c):
+    if len(c)==1:
+        if a==b:
+            if a>c[0]:
+                k='a,b相等，且都大于c,a和b的值为:'+str(a)
+                return k
+            elif a==c[0]:
+                k='a,b,c都相等,值为:'+str(a)
+                return k
+            else:
+                k='a,b相等,且都小于c,c值为:'+str(c[0])
+        elif a>b:
+            if a>c[0]:
+                k='a最大,值为:'+str(a)
+            elif a==c[0]:
+                k='a,c相等，且最大,a和c的值为:'+str(a)
+                return k
+        else:
+            if b>c[0]:
+                k='b最大,值为:'+str(b)
+                return k
+    elif a==b:
+        if a==max(c):
+            k='a,b和列表c最大值相等,值都为'+str(a)
+            return k
+        elif a>max(c):
+            k='a,b相等，且最大,a和b的值为:'+str(a)
+            return k
+        else:
+            k='a,b相等，且列表c中值最大,列表c中的值为:'+str(c)
+            return k
+    elif a>b:
+        if a>max(c):
+            k='a为最大值,a的值为:'+str(a)
+            return k
+        elif a==max(c):
+            k='a和列表c中最大值相等,a的值:'+str(a)
+            return k
+        else:
+            k='列表c有最大值，且值为:'+str(max(c))
+            return k
+
+    else:
+        if b==max(c):
+            k='b和列表c最大值相等,b的值相等:'+str(b)
+            return k
+        elif b>max(c):
+            k='b为最大值:'+str(b)
+            return k
+        else:
+            k='列表c有最大值,最大值为:'+str(max(c))
+            return k
+
+print(louistest(19,12,89,8,232,90))
 
