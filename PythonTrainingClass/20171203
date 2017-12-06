@@ -5,3 +5,5 @@
 #一个 py 文件就是一个 module ，多个 module 组成一个 package
 
 #if__name__='__main__'
+#每个 module 都有一个属性，都为__main__,如果在一个 module 里面，打印此属性为 __main__, 如果导入的是其他模块，该 module.__name__ 属性则为文件名
+#可以用来调试代码
