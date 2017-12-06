@@ -1,2 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+
+#module package
+#一个 py 文件就是一个 module ，多个 module 组成一个 package
+
+#if__name__='__main__'
