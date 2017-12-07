@@ -31,8 +31,28 @@ if __name__='__main__':
 #nonlocal global
 #nonlocal只在局部变量起作用, 且nonlocal只在python3里面有，global 调用全局变量
 def louis():
-  a=0
-  def louisa():
-    a=a+1
+    count = 1
+    def louisa():
+        nonlocal count
+        count = 12
+        return count
+    louisa()
+    a=print(count)
     return a
-#这里还有问题，容后面想通了再写进来
+
+louis()
+#其中，当使用nonlocal 时，对整个函数内部都有用
+#输出值为12
+
+def louis():
+    count = 1
+    def louisa():
+        global count
+        count = 12
+        return count
+    louisa()
+    a=print(count)
+    return a
+
+louis()
+#返回值为1，global 对整个全局变量都有用，但对嵌套的函数内部无效
