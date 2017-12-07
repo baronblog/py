@@ -4,6 +4,7 @@
 #module package
 #一个 py 文件就是一个 module ，多个 module 组成一个 package
 
+
 #if__name__='__main__'
 #a.py
 
@@ -25,4 +26,13 @@ if __name__='__main__':
 #其中分别运行 a，b 文件的时候，if判断语句为真，是因为每个 module 都有一个属性，都为__main__,如果在一个 module 里面，打印此属性为 __main__
 #可以运行，每一个文件都是一个module，可以作为一个模块导入到别的文件，当a文件导入b文件的时候，b文件中的if判断为假，if后面的将不会执行
 #后面不会执行，这种情况可以防止写在单元测试的逻辑被运行
+
+
+#nonlocal global
+#nonlocal只在局部变量起作用, 且nonlocal只在python3里面有，global 调用全局变量
+def louis():
+  a=0
+  def louisa():
+    a=a+1
+    return a
 
