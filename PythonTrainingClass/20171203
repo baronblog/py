@@ -60,5 +60,19 @@ louis()
 
 #import 还需要理解，这个周六读资料
 
+#列表去重
+def uniquelist(lists):
+    if type(lists)!=list:
+        return '您输入的类型有误，必须输入列表，请重新输入'
+    elif len(lists)==0:
+        return '您输入的列表为空，无法计算'
+    elif len(lists)==1:
+        return '您输入的列表仅有一位，不需要去重'
+    else:
+        result=[]
+        for r in lists:
+            if not r in result:
+                result.append(r)
+        return result
 
 
