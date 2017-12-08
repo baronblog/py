@@ -58,6 +58,39 @@ louis()
 #返回值为1，global 对整个全局变量都有用，但对嵌套的函数内部无效
 
 
-#import 还需要理解
+#import 还需要理解，这个周六读资料
 
-#封装函数，给定一个列表，如何快速排序
+
+#改善以前写的功能
+import pandas as pd
+import xlrd
+
+def readfile(filepath):
+    read_temple=pd.ExcelFile("/Users/louis/Desktop/ceshi.xlsx")
+    return read_temple
+
+def getsheet():
+    read_temple_sheet1=read_temple.parse("Total_Bill")
+    read_temple_sheet2=read_temple.parse("Bill_Detail")
+    read_temple_sheet3=read_temple.parse("Shipped_Detail")
+
+def company(read_temple_sheet1):
+    company=[]
+    for r in read_temple_sheet1['company']:
+        company.append(r)
+    return company
+
+def unique_company(company):
+    result=list(set(company))
+    return result
+
+def savefile(company_unique):
+    for company_name in  company_unique:
+        read_temple_sheet1_filter1=read_temple_sheet1[read_temple_sheet1.company==company_name]
+        read_temple_sheet2_filter2 = read_temple_sheet2[read_temple_sheet2.company == company_name]
+        read_temple_sheet3_filter3 = read_temple_sheet3[read_temple_sheet3.company == company_name]
+        writer = pd.ExcelWriter("C:/Users/Hymn/Desktop/template/"+company_name+".xlsx")
+        read_temple_sheet1_filter1.to_excel(writer,"Total_Bill",index=False)
+        read_temple_sheet2_filter2.to_excel(writer, "Bill_Detail",index=False)
+        read_temple_sheet3_filter3.to_excel(writer, "Shipped_Detail",index=False)
+        writer.save()
