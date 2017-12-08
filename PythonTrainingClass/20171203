@@ -75,4 +75,19 @@ def uniquelist(lists):
                 result.append(r)
         return result
 
+ #列表排序
+def orderbylist(uniquelist):
+    if type(uniquelist)!=list:
+        return '您输入的类型不是列表，必须输入列表，请重新输入'
+    elif len(uniquelist)==0:
+        return '您输入的列表为空，不需排列大小'
+    elif len(uniquelist)==1:
+        return '您输入的列表仅有一位数，不需要排列大写'
+    elif len(uniquelist)==2:
+        result=[]
+        result.append(min(uniquelist))
+        result.append(max(uniquelist))
+    else:
+        count=len(uniquelist)
+        for r in uniquelist:
 
