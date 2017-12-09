@@ -75,7 +75,7 @@ def uniquelist(lists):
                 result.append(r)
         return result
 
- #列表排序
+ #列表排序，安装从大到小的顺序写的，后面采用了冒泡排序方法
 def orderbylist(uniquelist):
     if type(uniquelist)!=list:
         return '您输入的类型不是列表，必须输入列表，请重新输入'
@@ -89,5 +89,9 @@ def orderbylist(uniquelist):
         result.append(max(uniquelist))
     else:
         count=len(uniquelist)
-        for r in uniquelist:
+        for r in range(0,count):
+            for rr in range(r+1,count):
+                if uniquelist[r]>uniquelist[rr]:
+                    uniquelist[r], uniquelist[rr]=uniquelist[rr], uniquelist[r]
+        return uniquelist
 
