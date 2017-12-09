@@ -60,6 +60,7 @@ louis()
 
 #import 还需要理解，这个周六读资料
 
+#封装对数据的处理函数
 #列表去重
 def uniquelist(lists):
     if type(lists)!=list:
@@ -95,3 +96,9 @@ def orderbylist(uniquelist):
                     uniquelist[r], uniquelist[rr]=uniquelist[rr], uniquelist[r]
         return uniquelist
 
+if __name__=='__main':
+    uniquelist()
+    orderbylist()
+    print('本段代码并没有作为模块导入，而是作为主模块文件运行')
+else:
+    print('导入了'+str(__name__)+'py文件')
