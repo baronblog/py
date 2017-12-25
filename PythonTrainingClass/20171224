@@ -50,3 +50,5 @@ for x,y in zip(a,b):
 
 #深拷贝：通过copy模块中的deepcopy函数
 
+#raw_input在python2.7版本中，input在python3.6版本中
+
