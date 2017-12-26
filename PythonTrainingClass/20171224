@@ -16,6 +16,15 @@ class D:pass
 2. 当在执行B里面的内容的时候，会先执行from A import C，A也是不在sys.path里面的，所以需要新建一个moduleA，执行A里面的内容；
 3. 因为之前已经新建了module B，但是后面的import D的时候，D还没来的及创建，找不到，就会报错。
 
+#相对导入和绝对导入
+绝对导入
+import pandas
+import pandas from DataFrame
+
+相对导入
+
+
+
 #赋值 深拷贝 浅拷贝
 赋值：对对象的引用，就是换了一个标签，打印id一样  
 
