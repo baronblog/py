@@ -61,3 +61,5 @@ for x,y in zip(a,b):
 
 #raw_input在python2.7版本中是内置函数，input在python3.6版本中是内置函数
 
+#字符编码问题
+
