@@ -63,3 +63,15 @@ for x,y in zip(a,b):
 
 #字符编码问题
 
+#简明python，动手做一个东西 (最原始版本)
+import zipfile
+import os
+import time
+
+filepath= r'C:\\Users\\Hymn\\Desktop\\caiwu'
+
+f = zipfile.ZipFile('caiwu'+time.strftime('%Y%m%d')+'.zip', 'w')
+for root , dirs, files in os.walk(filepath):
+    for r in  files:
+        f.write(filepath+'\\'+r)
+f.close()
