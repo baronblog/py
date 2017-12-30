@@ -31,6 +31,7 @@ mypackage/
     B/
         __init__.py
         bar.py
+        
 mypackage.A.spam要导入同目录下的模块grok：from . import grok, 其中 . 代表和span文件有相同目录
 mypackage.A.spam要导入不同目录下的模块B.bar：from ..B import bar, ..代表上层目录
 
