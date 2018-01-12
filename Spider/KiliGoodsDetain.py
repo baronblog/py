@@ -15,10 +15,14 @@ def get_url(sku):
     return url
 
 def get_page_content(url):
-    request = urllib2.Request(url)
-    html = urllib2.urlopen(request, timeout=20)
-    content = html.read()
-    return content
+    try:
+        request = urllib2.Request(url)
+        html = urllib2.urlopen(request, timeout=20)
+        content = html.read()
+        return content
+    except:
+        print(url)
+        return 0
 
 def get_img_content(content):
     soup = BeautifulSoup(content, 'html.parser')
@@ -33,12 +37,16 @@ def sku_id(readfile):
     return url
 
 def getimg(imgdata):
-    f = open("C:/Users/Hymn/Desktop/Picture/"+"Kilimall Kenya "+imgdata['alt']+".png", "wb")
-    result=urllib2.urlopen(imgdata['src'])
-    result_read=result.read()
-    f.write(result_read)
-    f.close()
-    return 1
+    try:
+        f = open("C:/Users/Hymn/Desktop/Picture/"+"Kilimall Kenya "+imgdata['alt']+".png", "wb")
+        result=urllib2.urlopen(imgdata['src'])
+        result_read=result.read()
+        f.write(result_read)
+        f.close()
+        return 1
+    except:
+        print(imgdata['src'])
+        return 0
 
 read_file=open("C:/Users/Hymn/Desktop/goodsid.txt")
 link=sku_id(read_file)
