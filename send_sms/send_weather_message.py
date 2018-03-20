@@ -124,8 +124,8 @@ if __name__ == 'send':
     params_low_temperature = params.replace("20", today_low_temperature)
     params_high_temperature = params_low_temperature.replace("30", today_high_temperature)
     params_today_weather = params_high_temperature.replace("yintian", today_weather)
-print send_sms(__business_id, "18711041019", "最可爱的小马", "SMS_127168313", params_today_weather)
+print send_sms(__business_id, "your phone number", "最可爱的小马", "SMS_127168313", params_today_weather)
 
 if __name__ == 'query':
-    print query_send_detail("1234567^8901234", "18711041019", 10, 1, "20180320")
+    print query_send_detail("1234567^8901234", "your phone number", 10, 1, "20180320")
 
