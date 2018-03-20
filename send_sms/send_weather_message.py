@@ -9,9 +9,9 @@ import urllib2
 import json
 
 """
-短信业务调用接口示例，版本号：v20170525
+短信业务调用接口示例，版本号：v20180320
 
-Created on 2017-06-12
+Created on 2018-03-20
 
 """
 
