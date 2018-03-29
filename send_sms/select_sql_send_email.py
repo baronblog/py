@@ -12,7 +12,7 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 
 def connection(sql,dates):
-    conn = pymysql.connect(host='kilimall-slave.cdhsfguj9gcoe.ap-fghsdft-1.rds.amazonaws.com', port=3306, user='user_louis', passwd='dgsdfgssaWyXid7P1oGFog2vJ8b8', db='kilimall_kenya')
+    conn = pymysql.connect(host='jumia-slave.cdhsfguj9gcoe.ap-fghsdft-1.rds.amazonaws.com', port=7866, user='user_lyang', passwd='dgsdfgssaWyXid7P1oGFog2vJ8b8', db='kilimall_kenya')
     cursor = conn.cursor()
     effect_row = cursor.execute(sql,dates)
     result=cursor.fetchall()
@@ -131,6 +131,7 @@ msg.attach(puretext)
 xlsxpart = MIMEApplication(open('sheet.xlsx', 'rb').read())
 xlsxpart.add_header('Content-Disposition', 'attachment', filename='sheet.xlsx')
 msg.attach(xlsxpart)
+#如果需要多个附件，需要多个msg.attach
 
 try:
     client = smtplib.SMTP()
