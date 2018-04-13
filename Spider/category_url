@@ -1,0 +1,21 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import pandas as pd
+from bs4 import BeautifulSoup
+
+
+with open("C:/Users/Hymn/Desktop/category.txt","r",encoding="utf-8") as category_file:
+    soup = BeautifulSoup(category_file.read(), 'html.parser')
+    result_div = soup.select("dd > a")
+    result=pd.DataFrame(result_div)
+    print(result)
+    finally_result=result.to_csv("C:/Users/Hymn/Desktop/result.csv",index=False)
+
+
+
+
+
+
+
+
