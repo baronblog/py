@@ -1,0 +1,57 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import pymysql
+import pandas as pd
+import datetime
+import time
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+import logging
+
+def getYesterday():
+    today=datetime.date.today()
+    oneday=datetime.timedelta(days=1)
+    yesterday=today-oneday
+    return yesterday
+
+today=str(getYesterday()).replace("-","")
+print(today)
+
+username = 'louis.yang@kilimall.com'
+password = 'Your password'
+sender = username
+
+
+# 如名字所示： Multipart就是多个部分
+msg = MIMEMultipart()
+msg['Subject'] = today+" Request for products to be promoted, and notice to restock products"
+msg['From'] = 'send email'
+msg['To'] = ', '.join(["your send mail list"])
+
+# 下面是文字部分，也就是纯文本
+puretext = MIMEText('''Morning Norah, Julie ,Nicole,\n{0}\n{0}Kindly tell me the products you want to promote today. Then check the Hot Cakes stock and restock asap,pls.\n
+{0}Thank you so much.'''.format("    "))
+msg.attach(puretext)
+print("email content already")
+# 下面是附件部分 ，这里分为了好几个类型
+
+
+try:
+    #print("开始连接邮件服务器了")
+    client = smtplib.SMTP()
+    client.connect('imap.exmail.qq.com')
+    client.login(username, password)
+    client.sendmail(sender,['louis.yang@kilimall.com','690566511@qq.com'], msg.as_string())
+    client.quit()
+    print('today data already send.')
+except smtplib.SMTPRecipientsRefused:
+    print('Recipient refused')
+except smtplib.SMTPAuthenticationError:
+    print('Auth error')
+except smtplib.SMTPSenderRefused:
+    print('Sender refused')
+except Exception as  e:
+    print(e)
