@@ -1,0 +1,25 @@
+# -*- coding: UTF-8 -*-
+import pandas as pd
+import re
+
+
+file=pd.read_excel("C:/Users/Hymn/Desktop/content.xlsx")
+file['colors']=1
+file['sizes']=1
+
+
+for index,content in file.iterrows():
+    print(index)
+    recontent=content['des']
+    try:
+        result_color=re.findall(r'<br/>Color: .*?<br/>',recontent)[0]
+    except:
+        result_color=0
+    try:
+        result_size=re.findall(r'<br/>Size: .*?<br/>',recontent)[0]
+    except:
+        result_size=0
+    file.loc[index,'colors']=result_color
+    file.loc[index,'sizes']=result_size
+file.to_excel("C:/Users/Hymn/Desktop/oshg.xlsx")
+
