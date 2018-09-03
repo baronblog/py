@@ -1,0 +1,177 @@
+# -*- coding: utf-8 -*-
+import requests
+import random
+import time
+import re
+import time
+import pymysql
+import pandas as pd
+from lxml import etree
+
+headers=[
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.103 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Fire'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0'},
+        {'User-Agent': 'User-Agent: Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Mobile Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2226.0 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.4; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2224.3 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 4.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (X11; OpenBSD i386) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.3319.102 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2309.372 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2117.157 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1866.237 Safari/537.36'},
+        {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/4E423F'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'},
+        {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10; rv:33.0) Gecko/20100101 Firefox/33.0'},
+        {'User-Agent': 'Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/31.0'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:31.0) Gecko/20130401 Firefox/31.0'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0'},
+        {'User-Agent': 'Opera/9.80 (X11; Linux i686; Ubuntu/14.10) Presto/2.12.388 Version/12.16'},
+        {'User-Agent': 'Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14'},
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 6.0; rv:2.0) Gecko/20100101 Firefox/4.0 Opera 12.14'},
+        {'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0) Opera 12.14'},
+        {'User-Agent': 'Opera/9.80 (Windows NT 5.1; U; zh-sg) Presto/2.9.181 Version/12.00'}
+    ]
+
+def connection(sql):
+    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='kilimall5224910', db='spider',use_unicode=True, charset="utf8")
+    cursor = conn.cursor()
+    effect_row = cursor.execute(sql)
+    result=cursor.fetchall()
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return result
+
+def request_home_url(url,headers):
+    try:
+        response=requests.get(url=url,headers=random.choice(headers),timeout=5)
+        print(response.status_code)
+        response.encoding='utf-8'
+        html=response.text
+        print("已成功得到网页")
+        #print(html)
+    except:
+        print(response.status_code)
+        print("得到错误网页")
+        html=0
+    return html
+
+def fiter_category_url(html):
+    result=re.findall(r'<a class="subcategory" href="(.*?)">.*?</a>',str(html))
+    for r in result:
+        print(r)
+        sql="insert into jumia (url) values (" + "'"+"{}".format(str(r))+"')"
+        print(sql)
+        connection(sql)
+        print("已经循环一次")
+        #time.sleep(1)
+
+def read_mysql_get_url_link():
+    category_url=[]
+    sql='''SELECT url FROM jumia GROUP BY url'''
+    result=pd.DataFrame(list(connection(sql)))
+    result.columns = ['url']
+    for index,i in result.iterrows():
+        #print(i['url'])
+        category_url.append(i['url'])
+    return category_url
+
+def get_category_listing(category_url):
+    try:
+        response = requests.get(url=category_url, headers=random.choice(headers), timeout=5)
+        html = response.text
+        result=re.findall(r'<a  class="link" href="(.*?)">',str(html))
+        for r in result:
+            print(r)
+            #time.sleep(1)
+            sql = "insert into jumia_success_url (url) values (" + "'" + "{}".format(str(r)) + "')"
+            connection(sql)
+    except:
+        sql = "insert into jumia_fail_url (url) values (" + "'" + "{}".format(str(category_url)) + "')"
+        connection(sql)
+
+def get_products_list():
+    product_url = []
+    sql = '''SELECT url FROM jumia_success_url GROUP BY url'''
+    result = pd.DataFrame(list(connection(sql)))
+    result.columns = ['url']
+    for index, i in result.iterrows():
+        print(i['url'])
+        product_url.append(i['url'])
+    return product_url
+
+def get_products_detail(product_url):
+    try:
+        response = requests.get(url=product_url, headers=random.choice(headers), timeout=5)
+        html = response.text
+        html_xpath=etree.HTML(html)
+        category_l1=html_xpath.xpath('/html/body/main/nav/ul/li[1]/a/text()')[0]
+        category_l2=html_xpath.xpath('/html/body/main/nav/ul/li[2]/a/text()')[0]
+        category_l3=html_xpath.xpath('/html/body/main/nav/ul/li[3]/a/text()')[0]
+        product_name=html_xpath.xpath('/html/body/main/section[1]/div[2]/div[1]/span/h1/text()')[0]
+        review_count=html_xpath.xpath('/html/body/main/section[1]/div[2]/div[1]/div[4]/div[2]/text()')
+        if review_count:
+            review_count=review_count[0]
+        else:
+            review_count=0
+        price_new=html_xpath.xpath('/html/body/main/section[1]/div[2]/div[1]/div[8]/div[1]/div/span/span[2]/text()')
+        if price_new:
+            price_new=price_new[0]
+        else:
+            price_new=html_xpath.xpath('/html/body/main/section[1]/div[2]/div[1]/div[7]/div[1]/div/span/span[2]/text()')[0]
+        store=html_xpath.xpath('/html/body/main/section[1]/div[2]/div[2]/ul/li[1]/ul/li[1]/span/strong/a/text()')
+        if store:
+            store=store[0]
+        else:
+            store=html_xpath.xpath('/html/body/main/section[1]/div[2]/div[2]/ul/li[1]/div[1]/a/text()')[0]
+        sale=html_xpath.xpath('/html/body/main/section[1]/div[2]/div[2]/ul/li[1]/ul/li[2]/div[2]/span[1]/text()')
+        if sale:
+            sale=sale[0]
+        else:
+            sale=html_xpath.xpath('/html/body/main/section[1]/div[2]/div[2]/ul/li[1]/div[2]/div[2]/span[1]/text()')[0]
+        store_rate=html_xpath.xpath('/html/body/main/section[1]/div[2]/div[2]/ul/li[1]/ul/li[2]/div[1]/div/span/text()')
+        if store_rate:
+            store_rate=store_rate[0]
+        else:
+            store_rate=html_xpath.xpath('/html/body/main/section[1]/div[2]/div[2]/ul/li[1]/div[2]/div[1]/div/span/text()')[0]
+        #print(category_l1,category_l2,category_l3,product_name,review_count,price_new,store,sale,store_rate)
+        sql = "insert into jumia_goods (url,l1,l2,l3,product_name,review_count,price_new,store,sale,store_rate) values \
+ ('{product_url}','{category_l1}','{category_l2}','{category_l3}','{product_name}','{review_count}','{price_new}',\
+ '{store}','{sale}','{store_rate}')".format(product_url=product_url,category_l1=category_l1,category_l2=category_l2,\
+                                            category_l3=category_l3,product_name=product_name,review_count=review_count,\
+                                            price_new=price_new,store=store,sale=sale,store_rate=store_rate)
+        print(sql)
+        connection(sql)
+    except:
+        sql = "insert into jumia_fail_url (url) values \
+         ('{product_url}')".format(product_url=product_url)
+        print(sql)
+        connection(sql)
+
+result=get_products_list()
+for r in result:
+    time.sleep(0.2)
+    get_products_detail(r)
+
+
+
+
+
+
