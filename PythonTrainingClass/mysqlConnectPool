@@ -1,0 +1,99 @@
+# -*- coding:utf-8 -*-
+import MySQLdb
+import DBUtils
+import time
+from MySQLdb.cursors import DictCursor
+from DBUtils.PooledDB import PooledDB
+
+
+
+
+class MySQLPool:
+
+	__pool = None
+	
+	def __init__(self):
+		self._conn = MySQLPool.__getConn()
+		self._cursor = self._conn.cursor()
+		
+	@staticmethod
+	def __getConn():
+		if MySQLPool.__pool is None:
+			__pool = PooledDB(creator=MySQLdb,mincached=1 , maxcached=20 ,
+                              host='10.10.1.161' , port=4512 , user='user' , passwd='passwd' ,
+                              db='kpf',use_unicode=False,charset='utf8',cursorclass=DictCursor)
+		return __pool.connection()
+							  
+	def func_time(func):
+		def inner(*args,**kw):
+			start_time = time.time()
+			func(*args,**kw)
+			end_time = time.time()
+			print '数据库连接池运行时间为：%s' %(str(end_time-start_time))
+		return inner
+	
+	@func_time
+	def getAll(self,sql):
+		count = self._cursor.execute(sql)
+		self._conn.commit()
+		self._cursor.close()
+		self._conn.close()
+		return count
+		
+
+class MySQL:
+	
+	def __init__(self):
+		self._conn = MySQLdb.connect(host='10.10.1.162',port=5555,
+                                             user='user',
+                                             passwd='passwd',
+                                             db='user',
+                                             connect_timeout=100,
+                                             charset='utf8')
+											 
+	def func_time(func):
+		def inner(*args,**kw):
+			start_time = time.time()
+			func(*args,**kw)
+			end_time = time.time()
+			print '数据库连接时间为：%s' %(str(end_time-start_time))
+		return inner
+		
+		
+	@func_time
+	def getAll(self,sql):
+		cursor = None
+		cursor = self._conn.cursor()
+		count = cursor.execute(sql)
+		cursor.close()
+		self._conn.commit()
+		self._conn.close()
+		return count
+	
+	
+
+def func_time(func):
+    def inner(*args,**kw):
+        start_time = time.time()
+        func(*args,**kw)
+        end_time = time.time()
+        print '函数运行时间为：%s' %(str(end_time-start_time))
+    return inner
+	
+	
+def testMySQL():
+	sql = 'select count(*) from tbl_kpf_volumn'
+	for r in range(0,301):
+		mysql = MySQL()
+		result = mysql.getAll(sql)
+	
+def testMySQLPool():
+	sql = 'select count(*) from tbl_kpf_volumn'
+	for r in range(0,301):
+		mysqlpool = MySQLPool()
+		result = mysqlpool.getAll(sql)
+		
+
+if __name__ == '__main__':
+	testMySQL()
+	testMySQLPool()
